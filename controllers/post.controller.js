@@ -11,4 +11,27 @@ const createPost = async (req, res) => {
 	}
 };
 
-module.exports = { createPost };
+const deletePost = async (req, res) => {
+	const { postId } = req.query;
+	const { userId } = req.body;
+	// check post
+
+	const post = await postModel.findById(postId);
+	if (!post) {
+		return res.send("Post does not exist");
+	}
+
+	//check if is the creator
+	if (userId != post.creator) {
+		return res.send("this post does not belong to you");
+	}
+
+	try {
+		await postModel.findByIdAndDelete(postId);
+		return res.send("Post deleted successfully!!!");
+	} catch (error) {
+		return res.send(error.message);
+	}
+};
+
+module.exports = { createPost, deletePost };
