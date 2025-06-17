@@ -9,7 +9,7 @@ dotenv.config();
 mongoose
 	.connect(process.env.MONGO_URL)
 	.then(() => console.log("connection was successful"))
-	.catch(() => console.log("oops something went wrong"));
+	.catch((error) => console.log(error));
 
 app.use(express.json()); // to convert to json
 
