@@ -74,11 +74,19 @@ const loginUser = async (req, res) => {
 	}
 	//return basic information
 
-	return res.json({
-		id: user.id,
-		name: user.name,
-		email: user.email,
-	});
+	return res
+		.cookie("userId", user.Id, {
+			maxAge: 1000 * 60 * 60,
+			secure: true,
+			httpOnly: true,
+		})
+		.json({ message: "This was successful" });
+
+	// return res.json({
+	// 	id: user.id,
+	// 	name: user.name,
+	// 	email: user.email,
+	// });
 };
 
 module.exports = { createUser, getUsers, updateUser, deleteUser, loginUser };
