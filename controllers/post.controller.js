@@ -71,7 +71,15 @@ const getUserPosts = async (req, res) => {
 
 //get single post
 
-const getSinglePost = async (req, res) => {};
+const getSinglePost = async (req, res) => {
+	const { postId } = req.query;
+	try {
+		const post = await postModel.findById(postId);
+		return res.json(post);
+	} catch (error) {
+		return res.send("Something went wrong");
+	}
+};
 
 module.exports = {
 	createPost,
