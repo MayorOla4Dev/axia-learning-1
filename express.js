@@ -2,8 +2,9 @@ const express = require("express");
 const userRoute = require("./route/user.route");
 const postRoute = require("./route/post.route");
 const mongoose = require("mongoose");
-const cookieParser = require("cookie-parser");
-const app = express();
+const port = 4000;
+// const cookieParser = require("cookie-parser");
+const server = express();
 const dotenv = require("dotenv");
 dotenv.config();
 //create connection
@@ -12,18 +13,18 @@ mongoose
 	.then(() => console.log("connection was successful"))
 	.catch((error) => console.log(error));
 
-app.use(cookieParser());
+// app.use(cookieParser());
 
-app.use(express.json()); // to convert to json
+server.use(express.json()); // to convert to json
 
 //calling endpoints for the student database manipulation
-app.use(userRoute);
+server.use(userRoute);
 
 // calling endpoints for posting
-app.use(postRoute);
+server.use(postRoute);
 
 //login a user
 
-app.listen(5000, () => {
-	console.log("App is running on port 5000");
+server.listen(port, () => {
+	console.log(`Server is running on port ${port}`);
 });
