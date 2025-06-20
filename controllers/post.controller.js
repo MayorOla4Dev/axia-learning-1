@@ -2,8 +2,9 @@ const postModel = require("../models/post.model");
 
 const createPost = async (req, res) => {
 	const body = req.body;
-	const cookies = req.cookies;
-	console.log(cookies);
+	// const cookies = req.cookies;
+	// const { userId } = cookies;
+	// console.log(cookies);
 	try {
 		const newPost = new postModel(body);
 		const savedPost = await newPost.save();

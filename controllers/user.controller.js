@@ -75,7 +75,7 @@ const loginUser = async (req, res) => {
 	//return basic information
 
 	return res
-		.cookie("userId", user.Id, {
+		.cookie("userId", user.id, {
 			maxAge: 1000 * 60 * 60,
 			secure: true,
 			httpOnly: true,

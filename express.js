@@ -12,6 +12,8 @@ mongoose
 	.then(() => console.log("connection was successful"))
 	.catch((error) => console.log(error));
 
+app.use(cookieParser());
+
 app.use(express.json()); // to convert to json
 
 //calling endpoints for the student database manipulation
