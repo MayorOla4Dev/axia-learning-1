@@ -1,9 +1,9 @@
 const express = require("express");
-const userRoute = require("./route/user.route");
-const postRoute = require("./route/post.route");
+const userRoute = require("./router/user.route");
+const postRoute = require("./router/post.route");
 const mongoose = require("mongoose");
 const port = 4000;
-// const cookieParser = require("cookie-parser");
+const cookieParser = require("cookie-parser");
 const server = express();
 const dotenv = require("dotenv");
 dotenv.config();
@@ -13,7 +13,7 @@ mongoose
 	.then(() => console.log("connection was successful"))
 	.catch((error) => console.log(error));
 
-// app.use(cookieParser());
+server.use(cookieParser());
 
 server.use(express.json()); // to convert to json
 
