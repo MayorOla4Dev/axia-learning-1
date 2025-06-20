@@ -1,5 +1,6 @@
 const userModel = require("../models/user.model");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const createUser = async (req, res) => {
 	//get the user's registration details and spread others
@@ -75,9 +76,10 @@ const loginUser = async (req, res) => {
 
 	//create JWT first
 
-	const token = JWT.sign(
-		{ name: username, id: user.id },
-		process.env.JWT_SECRET
+	const token = jwt.sign(
+		{ name: user.name, id: user.id },
+		process.env.JWT_SECRET,
+		{ expiresIn: "1hr" }
 	);
 
 	console.log(token);
@@ -90,12 +92,6 @@ const loginUser = async (req, res) => {
 			httpOnly: true,
 		})
 		.json({ message: "This was successful" });
-
-	// return res.json({
-	// 	id: user.id,
-	// 	name: user.name,
-	// 	email: user.email,
-	// });
 };
 
 module.exports = { createUser, getUsers, updateUser, deleteUser, loginUser };
