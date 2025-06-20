@@ -72,10 +72,19 @@ const loginUser = async (req, res) => {
 	if (!isValid) {
 		return res.send("Invalid password!");
 	}
+
+	//create JWT first
+
+	const token = JWT.sign(
+		{ name: username, id: user.id },
+		process.env.JWT_SECRET
+	);
+
+	console.log(token);
 	//return basic information
 
 	return res
-		.cookie("userId", user.id, {
+		.cookie("token", token, {
 			maxAge: 1000 * 60 * 60,
 			secure: true,
 			httpOnly: true,

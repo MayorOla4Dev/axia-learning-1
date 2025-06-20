@@ -4,6 +4,7 @@ const postRoute = require("./router/post.route");
 const mongoose = require("mongoose");
 const port = 4000;
 const cookieParser = require("cookie-parser");
+const JWT = require("jsonwebtoken");
 const server = express();
 const dotenv = require("dotenv");
 dotenv.config();
