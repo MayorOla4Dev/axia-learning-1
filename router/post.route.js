@@ -6,12 +6,13 @@ const {
 	getUserPosts,
 	getSinglePost,
 } = require("../controllers/post.controller");
+const authentication = require("../middlewares/auth.middleware");
 
 const route = express.Router();
 
-route.post("/post", createPost);
+route.post("/post", authentication, createPost);
 
-route.delete("/post", deletePost);
+route.delete("/post", authentication, deletePost);
 
 route.put("/post", updatePost);
 

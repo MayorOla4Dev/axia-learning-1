@@ -77,21 +77,19 @@ const loginUser = async (req, res) => {
 	//create JWT first
 
 	const token = jwt.sign(
-		{ name: user.name, id: user.id },
+		{ id: user.id, admin: user.admin },
 		process.env.JWT_SECRET,
-		{ expiresIn: "1hr" }
+		{ expiresIn: "2hr" }
 	);
 
-	console.log(token);
 	//return basic information
 
-	return res
-		.cookie("token", token, {
-			maxAge: 1000 * 60 * 60,
-			secure: true,
-			httpOnly: true,
-		})
-		.json({ message: "This was successful" });
+	res.cookie("token", token, {
+		maxAge: 1000 * 60 * 60,
+		secure: true,
+		httpOnly: true,
+	});
+	return res.json({ message: "This was successful" });
 };
 
 module.exports = { createUser, getUsers, updateUser, deleteUser, loginUser };

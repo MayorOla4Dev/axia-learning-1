@@ -1,30 +1,39 @@
 const postModel = require("../models/post.model");
+const jwt = require("jsonwebtoken");
 
 const createPost = async (req, res) => {
 	const body = req.body;
-	const { userId } = req.cookies;
+	const { id } = req.user;
+	console.log(req.user);
 
 	try {
-		const newPost = new postModel({ creator: userId, ...body });
+		const newPost = new postModel({
+			creator: id,
+			...body,
+		});
+
 		const savedPost = await newPost.save();
 		return res.json(savedPost);
 	} catch (error) {
-		return res.send("something went wrong");
+		console.log(error.message);
+		return res.send(error.message);
 	}
 };
 
 const deletePost = async (req, res) => {
 	const { postId } = req.query;
-	const { userId } = req.body;
+	const { id, admin } = req.user;
 	// check post
 
 	const post = await postModel.findById(postId);
+
 	if (!post) {
 		return res.send("Post does not exist");
 	}
 
 	//check if is the creator
-	if (userId != post.creator) {
+
+	if (id != post.creator && !admin) {
 		return res.send("this post does not belong to you");
 	}
 
