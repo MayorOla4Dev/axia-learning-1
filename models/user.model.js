@@ -36,6 +36,10 @@ const userSchema = new mongoose.Schema(
 			type: [String],
 			required: true,
 		},
+		kyc: {
+			type: mongoose.Types.ObjectId,
+			ref: "kyc",
+		},
 	},
 	{ timestamps: true }
 );
